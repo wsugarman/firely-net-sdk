@@ -370,23 +370,13 @@ namespace Hl7.Fhir.Serialization.Tests
                 return true; // not a resource
             if (file.Contains("choice-elements"))
                 return true; // not a resource
-
             if (file.Contains("v2-tables"))
                 return true; // this file is known to have a single dud valueset - have reported on Zulip
                              // https://chat.fhir.org/#narrow/stream/48-terminology/subject/v2.20Table.200550
 
-            if (file.Contains("sc-valueset-") || file.EndsWith("conceptmaps.xml") || file.EndsWith("valuesets.xml"))
-                return true; // these files contain conceptmaps with incorrect relationship element
-            if (file.EndsWith("activitydefinition-medicationorder-example(citalopramPrescription).xml") ||
-                file.EndsWith("plandefinition-example(low-suicide-risk-order-set).xml") ||
-                file.EndsWith("plandefinition-example-cardiology-os(example-cardiology-os).xml"))
-                return true; // this file contains an incorrect strengthRatio element
-            if (file.EndsWith("ingredient-example(example).xml"))
-                return true; // this file contains an incorrect coding element
-            if (file.EndsWith("medicationrequest0301(medrx0301).xml"))
-                return true; // this file contains an incorrect dispenser element
-            if (file.EndsWith("subscriptionstatus-example(example).xml"))
-                return true; // this file contains an incorrect focus element
+            if (file.EndsWith("notification-empty(9601c07a-e34f-4945-93ca-6efb5394c995).xml"))
+                return true; // not a resource
+
             return false;
         }
 

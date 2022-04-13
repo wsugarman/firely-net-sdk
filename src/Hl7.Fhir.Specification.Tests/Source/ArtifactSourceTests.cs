@@ -253,18 +253,15 @@ namespace Hl7.Fhir.Specification.Tests
         [TestMethod]
         public void TestZipSourceMask()
         {
-            // In release 4B, the StructureDefinition for PrimitiveType was missing. That was manually added by MV on 2021-04-30 to specification.zip
-            // If this has been solved by Hl7, then the Mask can changed back to only profiles-types.xml again.
-
             var zipFile = Path.Combine(Directory.GetCurrentDirectory(), "specification.zip");
             Assert.IsTrue(File.Exists(zipFile), "Error! specification.zip is not available.");
             var za = new ZipSource(zipFile)
             {
-                Mask = "profiles-types.xml|StructureDefinition_PrimitiveType.xml"
+                Mask = "profiles-types.xml"
             };
 
             var artifacts = za.ListArtifactNames().ToArray();
-            artifacts.Should().BeEquivalentTo(new[] { "profiles-types.xml", "StructureDefinition_PrimitiveType.xml" });
+            artifacts.Should().BeEquivalentTo(new[] { "profiles-types.xml" });
 
             var resourceIds = za.ListResourceUris(ResourceType.StructureDefinition).ToList();
             Assert.IsNotNull(resourceIds);
@@ -277,7 +274,7 @@ namespace Hl7.Fhir.Specification.Tests
             // - total number of known (concrete) resources
             // - 1 for abstract type Resource
             // - 1 for abstract type DomainResource
-            // - 2 for abstract R5 base types not present as R4B structuredefs
+            // - 4 for abstract R5 base types not present as R4B structuredefs
             // =======================================
             //   total number of known FHIR (complex & primitive) datatypes
             var coreDataTypes = ModelInfo.FhirCsTypeToString.Where(kvp => !ModelInfo.IsKnownResource(kvp.Key)
@@ -285,6 +282,8 @@ namespace Hl7.Fhir.Specification.Tests
                                                                             && kvp.Value != "DomainResource"
                                                                             && kvp.Value != "BackboneType"
                                                                             && kvp.Value != "Base"
+                                                                            && kvp.Value != "DataType"
+                                                                            && kvp.Value != "PrimitiveType"
                                                                             )
                                                             .Select(kvp => kvp.Value);
 
