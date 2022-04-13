@@ -2675,8 +2675,6 @@ namespace Hl7.Fhir.Specification.Tests
 
         private async T.Task<bool> testExpandResource(string url)
         {
-            // TODO [MV 20220105 Citation is causing problems ]
-            if (url == "http://hl7.org/fhir/StructureDefinition/Citation") return true;
 
             Debug.Print("[testExpandResource] url = '{0}'", url);
             var sd = await _testResolver.FindStructureDefinitionAsync(url);

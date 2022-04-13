@@ -373,10 +373,6 @@ namespace Hl7.Fhir.Serialization.Tests
             if (file.Contains("v2-tables"))
                 return true; // this file is known to have a single dud valueset - have reported on Zulip
                              // https://chat.fhir.org/#narrow/stream/48-terminology/subject/v2.20Table.200550
-
-            if (file.EndsWith("notification-empty(9601c07a-e34f-4945-93ca-6efb5394c995).xml"))
-                return true; // not a resource
-
             return false;
         }
 
